@@ -3,25 +3,15 @@
 package com.example.roomkotlin.ui
 
 import android.app.AlertDialog
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.roomkotlin.R
 import com.example.roomkotlin.db.NoteDataBase
 import com.example.roomkotlin.db.User
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.annotations.NonNull
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_add_notes.*
 import kotlinx.coroutines.launch
-import java.util.*
-import java.util.concurrent.TimeUnit
-import io.reactivex.rxjava3.disposables.Disposable as Disposable1
 
 class AddNotesFragment : BaseFragment() {
 
@@ -48,6 +38,11 @@ class AddNotesFragment : BaseFragment() {
         button_save.setOnClickListener {view->
             var note_title = edit_text_title.text.toString().trim()
             var note_desc = edit_text_note.text.toString().trim()
+
+            if(note_title.isEmpty() || note_desc.isEmpty()){
+                Toast.makeText(activity, "All fields are mandatory", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
 
             launch {
@@ -77,6 +72,10 @@ class AddNotesFragment : BaseFragment() {
             R.id.delete -> if (notes != null) deleteNote()
             else
                 Toast.makeText(activity, "Cant delete empty note", Toast.LENGTH_SHORT).show()
+            android.R.id.home -> {
+                    activity?.onBackPressed()
+                    return true
+            }
         }
         return super.onOptionsItemSelected(item)
 
@@ -106,6 +105,8 @@ class AddNotesFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu,menu)
     }
+
+
 
     /*fun saveNotes(note:User){
         class SaveNoteDetails() : AsyncTask<Void,Void,Void>(){

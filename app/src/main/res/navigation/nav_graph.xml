@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.roomkotlin.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="Notes App"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_addNotesFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/addNotesFragment"
         android:name="com.example.roomkotlin.ui.AddNotesFragment"
-        android:label="fragment_add_notes"
+        android:label="Notes App"
         tools:layout="@layout/fragment_add_notes" >
         <action
             android:id="@+id/action_addNotesFragment_to_homeFragment"
